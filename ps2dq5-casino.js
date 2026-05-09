@@ -1,5 +1,3 @@
-// ace editor 
-
 "use strict";
 
 var oop = ace.require("ace/lib/oop");
@@ -80,10 +78,10 @@ const createSplitEditor = function (editorA, editorB) {
     return split;
 };
 
-fetch("./10C.txt")
+fetch("./ps2dq5-10C.txt")
   .then(response => response.text())
   .then(text => editorA.setValue(text) && editorA.session.getUndoManager().reset());
-fetch("./100C.txt")
+fetch("./ps2dq5-100C.txt")
   .then(response => response.text())
   .then(text => editorB.setValue(text) && editorB.session.getUndoManager().reset());
 
@@ -111,7 +109,7 @@ for (const ed of [editorA, editorB]) {
 //   });
   ed.commands.addCommand({
     name: "toggleFocus",
-    bindKey: {win: "Ctrl+Tab", mac: "Ctrl+Tab"},
+    bindKey: {win: "Tab", mac: "Tab"},
     exec: (e) => {
       const next = (ed == editorA) ? editorB : editorA;
       next.focus();
@@ -122,9 +120,13 @@ for (const ed of [editorA, editorB]) {
     exec: (e) => {
         document.querySelector("#jackpot-list .tabulator-tableholder").focus();
     }});
+
+  // Enterで改行しないように(readOnlyは有効にするとisearchできなくなる)
+  ed.commands.removeCommand("insertstring");
+
   ed.commands.addCommand({
     name: "openJackpotListAndstartTimer",
-    bindKey: {win: "Tab", mac: "Tab"},
+    bindKey: {win: "Enter", mac: "Enter"},
     exec: (e) => {
         CountdownTimer(null);
 
