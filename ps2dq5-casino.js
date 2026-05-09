@@ -207,8 +207,8 @@ const CmdLine = function(el, ed, placeholder) {
     };
 }
 
-CmdLine(document.getElementById('consoleA'), editorA, "10コインスロット出目表");
-CmdLine(document.getElementById('consoleB'), editorB, "100コインスロット出目表");
+CmdLine(document.getElementById('consoleA'), editorA, "10コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
+CmdLine(document.getElementById('consoleB'), editorB, "100コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
 
 const msecfmt = function(val) {
     const min = Math.floor(val / 60);
@@ -254,7 +254,7 @@ const JackpotList = new Tabulator("#jackpot-list", {
     },
     {title:"スロット", field:"slot"},
     {title:"回転数", field:"roll", sorter: "number"}, // roll?
-    {title:"ライン", field:"reel", sorter: "number"}, // reel?
+    {title:"パターン", field:"reel", sorter: "number"}, // reel?
     {title:"獲得コイン枚数", field:"payout", sorter: "number"},
     {title:"必要コイン枚数", field:"bet", sorter: "number"},
     {title:"当選確率", field:"odds", sorter: "number"},
