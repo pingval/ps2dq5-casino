@@ -54,63 +54,23 @@ oop.inherits(PS2DQ5_100cHighlightRules, TextHighlightRules);
 const PS2DQ5_100cMode = function() { this.HighlightRules = PS2DQ5_100cHighlightRules; };
 oop.inherits(PS2DQ5_100cMode, TextMode);
 
-// const HighlightRules10C = function() {
-//     this.$rules = {
-//         "start" : [
-//             { token: "constant.numeric", regex: "-?\\d+" }, // 数値
-//             { token: "keyword", regex: "(?:LEFT|RIGHT|PANEL)" }, // 特定のキーワード
-//             { token: "string", regex: '".*?"' }, // 文字列
-//             { token: "comment", regex: "//.*$" } // コメント
-//         ]
-//     };
-// };
-// const oop = ace.require("ace/lib/oop");
-// const TextMode = ace.require("ace/mode/text").Mode;
-// const CustomMode = function() { this.HighlightRules = HighlightRules10C; };
-// oop.inherits(CustomMode, TextMode);
-
-// leftEditor.session.setMode(new CustomMode());
-// rightEditor.session.setMode(new CustomMode());
-
-
-//samples/side by side diff example
-
-/**@type{typeof import("ace-builds/src-noconflict/ext-diff").createDiffView}*/
 const createDiffView = ace.require("ace/ext/diff").createDiffView;
 
 //example function to create side-by-side editors
 const createSplitEditor = function (editorA, editorB) {
     const el = document.getElementById('example');
     var e0 = document.getElementById('editorA');
-    // var s = document.getElementById('splitter');
     var e1 = document.getElementById('editorB');
-    // e0.style.position = e1.style.position = s.style.position = "absolute";
-    e0.style.position = e1.style.position = "absolute";
-    el.style.position = "relative";
-
-    const ratio = 0.5;
+    const height = document.documentElement.clientHeight - el.offsetTop;
+    // console.log(document.documentElement.clientHeight, el.offsetTop);
+    el.style.display = "grid";
+    el.style.gridAutoFlow = "column";
+    el.style.gridTemplateColumns = "660px 660px 640px";
+    el.style.gridTemplateRows = `${height-30}px 20px`;
 
     var split = { $container: el };
 
     split.resize = function resize() {
-        // var height = el.parentNode["clientHeight"] - el.offsetTop;
-        var height = 500;
-        var total = el.clientWidth;
-        var w1 = total * ratio;
-        var w2 = total * (1 - ratio);
-        // s.style.left = w1 - 1 + "px";
-        // s.style.height = el.style.height = height + "px";
-
-        var st0 = editorA.container.style;
-        var st1 = editorB.container.style;
-        st0.width = w1 + "px";
-        st1.width = w2 + "px";
-        st0.left = 0 + "px";
-        st1.left = w1 + "px";
-
-        st0.top = st1.top = "0px";
-        st0.height = st1.height = height + "px";
-
         editorA.resize();
         editorB.resize();
     };
@@ -120,18 +80,20 @@ const createSplitEditor = function (editorA, editorB) {
     return split;
 };
 
-const valueA = value10C;
-const valueB = value100C;
+fetch("./10C.txt")
+  .then(response => response.text())
+  .then(text => editorA.setValue(text));
+fetch("./100C.txt")
+  .then(response => response.text())
+  .then(text => editorB.setValue(text));
 
 // Create the editor (left side)
 const editorA = ace.edit("editorA", {
-    value: valueA,
     mode: new PS2DQ5_10cMode(),
 });
 
 // Create the editor (right side)
 const editorB = ace.edit("editorB", {
-    value: valueB,
     mode: new PS2DQ5_100cMode(),
 });
 
@@ -177,14 +139,8 @@ for (const ed of [editorA, editorB]) {
         }
         JackpotList.updateData(data);
     }});
-  ed.addEventListener('focus',(e) => {
-    const prev = (ed == editorA) ? editorB : editorA;
-    const next = ed;
-    prev.container.classList.add('inactive')
-    next.container.classList.remove('inactive');
-    activeEditor = next;
-  });
 }
+
 
 const ps2dq5_wait_offset = 0.5;
 const ps2dq5_calc_wait = function (from, to) {
@@ -203,21 +159,15 @@ const ps2dq5_rowcol2rollreel = function (row, col) {
   return [roll, reel];
 }
 
-// Highlight Active Line
-
-/**@type{import("ace-builds/src-noconflict/ext-diff").DiffViewOptions}*/
 const options = {
-    syncSelections: true, //Whether to synchronize selections between both editors
-    ignoreTrimWhitespace: true, //Whether to ignore trimmed whitespace when computing diffs
+    syncSelections: true,
+    ignoreTrimWhitespace: true,
 }
 
-// Turn on the split diff
 const diffView = createDiffView({
-    editorA: editorA,  // left-hand editor
-    editorB: editorB    // right-hand editor
+    editorA: editorA,
+    editorB: editorB,
 }, options);
-
-// prepare layout for two editors
 createSplitEditor(editorA, editorB);
 
 const CmdLine = function(el, ed) {
@@ -256,8 +206,6 @@ const CmdLine = function(el, ed) {
 CmdLine(document.getElementById('consoleA'), editorA);
 CmdLine(document.getElementById('consoleB'), editorB);
 
-// const JackpotData = fetch('./ps2dq5-jackpotdata.json').then(response => response.json()).then( data => data);
-
 const msecfmt = function(val) {
     const min = Math.floor(val / 60);
     const sec = Math.floor(val % 60);
@@ -265,9 +213,9 @@ const msecfmt = function(val) {
     return `${min}:${sec.toString().padStart(2, 0)}.${msec.toString().padEnd(3, 0)}`;
 }
 
+
+
 const JackpotList = new Tabulator("#jackpot-list", {
-    height:"500",
-    // layout : "fitColumns",
     ajaxURL: './ps2dq5-casino-jackpotdata.json',
     selectableRange : true , 
     selectableRangeColumns: true,
@@ -280,8 +228,19 @@ const JackpotList = new Tabulator("#jackpot-list", {
         // "navPrev" : false,
         // "navNext" : false,
     },
+    rowFormatter: function(row) {
+      const payout = row.getData().payout;
+
+      if (payout.includes("0万")) {
+        row.getElement().style.backgroundColor = "#396";
+        row.getElement().style.color = "white";
+        row.getElement().style.fontWeight = "bold";
+      } else if (payout.includes("万")) {
+        row.getElement().style.backgroundColor = "#9fc";
+      }
+    },
     columns:[
-    {title:"待ち時間", field:"wait", sorter: "time",
+    {title:"&nbsp;待ち時間&nbsp;", field:"wait", sorter: "time",
         formatter: function(cell, _, __){
             const val = cell.getValue();
             if (val == -1) return "";
@@ -299,26 +258,17 @@ const JackpotList = new Tabulator("#jackpot-list", {
     ],
 });
 
-// JackpotList.on("rowClick", function(e, row){
-//     alert("Row " + row.getIndex() + " Clicked!!!!")
-// });
-
 document.querySelector("#jackpot-list").addEventListener("keydown", function(e){
   if (e.key != "Tab") return;
   
-//   const activeRow = document.querySelector("#jackpot-list .tabulator-row.tabulator-range-highlight");
-//   console.log(activeRow);
-//   const idx = 1 + Array.prototype.indexOf.call(document.querySelectorAll("#jackpot-list .tabulator-row"), activeRow);
-//   console.log(idx);
-
   const idx = 1 + JackpotList.getRanges()[0].getTopEdge();
-  console.log(JackpotList.getRow(idx));
+  // console.log(JackpotList.getRow(idx));
   const rowData = JackpotList.getRow(idx).getData();
-  console.log(rowData.roll, rowData.reel, rowData.wait);
+  // console.log(rowData.roll, rowData.reel, rowData.wait);
 
   const [row, col] = ps2dq5_rollreel2rowcol(rowData.roll, rowData.reel);
   targetTime = rowData.wait;
-  console.log(row, col, rowData.wait*1000);
+  // console.log(row, col, rowData.wait*1000);
 
   const _100cp = rowData.slot == "100C";
 
@@ -329,28 +279,9 @@ document.querySelector("#jackpot-list").addEventListener("keydown", function(e){
     editorA.focus();
     editorB.gotoLine(row+ps2dq5_jackpotJump_row_offset, col);
   }
-
-
-// e.blur();
 });
 
 const ps2dq5_jackpotJump_row_offset = -15;
-
-
-// JackpotList.on("cellEditing", function(cell){
-    // alert();
-// });
-
-// hozAlign 
-// headerSort 
-
-let activeEditor = editorA;
-
-// tabulator-range-selected tabulator-range-only-cell-selected
-// tabulator-range-highlight
-
-// 横分割、縦分割どちらもいける
-// 10c/100cはどちらかだけ表示する
 
 let T = null;
 let targetTime = null;
@@ -366,3 +297,22 @@ const CountdownTimer = function () {
         CountdownTimerElement.innerHTML = `残り${remaining} (${elapsed}経過)`;
     });
 };
+
+const containerList = [
+  [editorA, document.querySelector("#editorA")],
+  [editorB, document.querySelector("#editorB")],
+  // [document.querySelector("#jackpot-list .tabulator-tableholder"), document.querySelector("#jackpot-list")],
+];
+
+for (const [ed, container] of containerList) {
+  // console.log([ed, container]);
+  ed.addEventListener('focus',(e) => {
+    // console.log(e);
+    for (const [_ed, _container] of containerList) {
+      if (ed == _ed)
+        _container.classList.remove('inactive')
+      else
+        _container.classList.add('inactive');
+    }
+  });
+}
