@@ -82,10 +82,10 @@ const createSplitEditor = function (editorA, editorB) {
 
 fetch("./10C.txt")
   .then(response => response.text())
-  .then(text => editorA.setValue(text));
+  .then(text => editorA.setValue(text) && editorA.session.getUndoManager().reset());
 fetch("./100C.txt")
   .then(response => response.text())
-  .then(text => editorB.setValue(text));
+  .then(text => editorB.setValue(text) && editorB.session.getUndoManager().reset());
 
 // Create the editor (left side)
 const editorA = ace.edit("editorA", {
@@ -261,7 +261,8 @@ const JackpotList = new Tabulator("#jackpot-list", {
 });
 
 document.querySelector("#jackpot-list").addEventListener("keydown", function(e){
-  if (e.key != "Tab") return;
+  if (e.key != "Enter") return;
+  e.preventDefault();
   
   const idx = 1 + JackpotList.getRanges()[0].getTopEdge();
   // console.log(JackpotList.getRow(idx));
