@@ -319,4 +319,6 @@ window.onload = function() {
       }
     });
   }
+  editorA.focus();
+  editorA.gotoLine(0, 0);
 }
