@@ -89,12 +89,13 @@ fetch("./100C.txt")
 
 // Create the editor (left side)
 const editorA = ace.edit("editorA", {
-    mode: new PS2DQ5_10cMode(),
+  
+  mode: new PS2DQ5_10cMode(),
 });
 
 // Create the editor (right side)
 const editorB = ace.edit("editorB", {
-    mode: new PS2DQ5_100cMode(),
+  mode: new PS2DQ5_100cMode(),
 });
 
 for (const ed of [editorA, editorB]) {
@@ -170,7 +171,7 @@ const diffView = createDiffView({
 }, options);
 createSplitEditor(editorA, editorB);
 
-const CmdLine = function(el, ed) {
+const CmdLine = function(el, ed, placeholder) {
     var renderer = new (ace.require("ace/virtual_renderer").VirtualRenderer)(el);
     el.style.overflow = "hidden";
 
@@ -192,7 +193,8 @@ const CmdLine = function(el, ed) {
     editor.renderer.setHighlightGutterLine(false);
     editor.$mouseHandler.$focusWaitTimout = 0;
 
-    editor.setOption("placeholder", "Enter a command...");
+    editor.setOption("placeholder", placeholder);
+    editor.setOption("fontSize", 20);
     editor.editor = ed;
     ed.cmdLine = editor;
 
@@ -203,8 +205,8 @@ const CmdLine = function(el, ed) {
     };
 }
 
-CmdLine(document.getElementById('consoleA'), editorA);
-CmdLine(document.getElementById('consoleB'), editorB);
+CmdLine(document.getElementById('consoleA'), editorA, "10コインスロット出目表");
+CmdLine(document.getElementById('consoleB'), editorB, "100コインスロット出目表");
 
 const msecfmt = function(val) {
     const min = Math.floor(val / 60);
@@ -298,21 +300,23 @@ const CountdownTimer = function () {
     });
 };
 
-const containerList = [
-  [editorA, document.querySelector("#editorA")],
-  [editorB, document.querySelector("#editorB")],
-  // [document.querySelector("#jackpot-list .tabulator-tableholder"), document.querySelector("#jackpot-list")],
-];
+window.onload = function() {
+  const containerList = [
+    [editorA, document.querySelector("#editorA")],
+    [editorB, document.querySelector("#editorB")],
+    [document.querySelector("#jackpot-list .tabulator-tableholder"), document.querySelector("#jackpot-list")],
+  ];
 
-for (const [ed, container] of containerList) {
-  // console.log([ed, container]);
-  ed.addEventListener('focus',(e) => {
-    // console.log(e);
-    for (const [_ed, _container] of containerList) {
-      if (ed == _ed)
-        _container.classList.remove('inactive')
-      else
-        _container.classList.add('inactive');
-    }
-  });
+  for (const [ed, container] of containerList) {
+    // console.log([ed, container]);
+    ed.addEventListener('focus',(e) => {
+      // console.log(e);
+      for (const [_ed, _container] of containerList) {
+        if (ed == _ed)
+          _container.classList.remove('inactive')
+        else
+          _container.classList.add('inactive');
+      }
+    });
+  }
 }
