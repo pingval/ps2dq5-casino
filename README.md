@@ -9,6 +9,8 @@
 
 # PS2DQ5 カジノ検索ツール on Web
 
+ここから使えます [https://pingval.github.io/ps2dq5-casino/](https://pingval.github.io/ps2dq5-casino/)
+
 ## 使い方
 
 WIP
