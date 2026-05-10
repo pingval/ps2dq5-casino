@@ -129,6 +129,7 @@ for (const ed of [editor10C, editor100C]) {
     name: "openJackpotListAndstartTimer",
     bindKey: {win: "Enter", mac: "Enter"},
     exec: (e) => {
+        Target = {};
         CountdownTimer(null);
 
         console.log([e.getCursorPosition().row, e.getCursorPosition().column]);
@@ -212,8 +213,8 @@ const CmdLine = function(el, ed, placeholder) {
     };
 }
 
-CmdLine(document.getElementById('console10C'), editor10C, "10コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
-CmdLine(document.getElementById('console100C'), editor100C, "100コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
+CmdLine(document.getElementById('console10C'), editor10C, "検索: Ctrl+S (🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7) / タイマー開始＆右表へ: Enter");
+CmdLine(document.getElementById('console100C'), editor100C, "検索: Ctrl+S (🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7) / タイマー開始＆右表へ: Enter");
 
 const msecfmt = function(val) {
     const min = Math.floor(val / 60);
@@ -294,24 +295,20 @@ document.querySelector("#jackpot-list").addEventListener("keydown", function(e){
 const ps2dq5_jackpotJump_row_offset = -15;
 
 let T = null;
-const Target = {
-  wait: null,
-  roll: null,
-  reel: null,
-};
+let Target = {};
 const CountdownTimerElement = document.querySelector("#countdown-timer");
 const CountdownTimer = function () {
   const baseTime = new Date;
   clearInterval(T);
   T = setInterval(function() {
     const elapsed = msecfmt((new Date - baseTime) / 1000);
-    if (Target.wait === null) {
+    if (Target.wait === undefined) {
       CountdownTimerElement.innerHTML = `目標未設定 (${elapsed}経過)`;
       return;
     }
     const target = `${Target.roll}-${Target.reel}`;
     const remaining = msecfmt((Target.wait * 1000 - (new Date - baseTime)) / 1000);
-    CountdownTimerElement.innerHTML = `目標${target} / 残り${remaining} (${elapsed}経過)`;    
+    CountdownTimerElement.innerHTML = `目標${target}まで、あと${remaining} (${elapsed}経過)`;    
   });
 };
 
@@ -341,6 +338,8 @@ window.onload = function() {
   }
   editor10C.focus();
   editor10C.gotoLine(0, 0);
+
+  CountdownTimerElement.innerHTML = `タイマーの目標に選択行を設定＆出目表の目標手前へジャンプ: Enter`;
 }
 
 function syncEditors(source, target) {
