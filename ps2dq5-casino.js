@@ -67,7 +67,7 @@ const createSplitEditor = function (editor10C, editor100C) {
       // console.log(document.documentElement.clientHeight, el.offsetTop);
       el.style.display = "grid";
       el.style.gridAutoFlow = "column";
-      el.style.gridTemplateColumns = "670px 670px 780px";
+      el.style.gridTemplateColumns = "670px 670px 690px";
       el.style.gridTemplateRows = `${height-30}px 20px`;
 
       editor10C.resize();
@@ -258,8 +258,8 @@ const JackpotList = new Tabulator("#jackpot-list", {
     {title:"スロット", field:"slot"},
     {title:"回転数", field:"roll", sorter: "number"}, // roll?
     {title:"パターン", field:"reel", sorter: "number"}, // reel?
-    {title:"獲得コイン枚数", field:"payout", sorter: "number"},
-    {title:"必要コイン枚数", field:"bet", sorter: "number"},
+    {title:"獲得枚数", field:"payout", sorter: "number"},
+    {title:"必要枚数", field:"bet", sorter: "number"},
     {title:"当選確率", field:"odds", sorter: "number"},
     {title:"備考", field:"note", hozAlign: "left"},
     ],
@@ -333,9 +333,9 @@ window.onload = function() {
           _container.classList.add('inactive');
       }
       if (ed == editor10C) {
-        document.querySelector("#container").style.gridTemplateColumns = "670px 0px 780px";
+        document.querySelector("#container").style.gridTemplateColumns = "670px 0px 690px";
       } else if (ed == editor100C) {
-        document.querySelector("#container").style.gridTemplateColumns = "0px 670px 780px";
+        document.querySelector("#container").style.gridTemplateColumns = "0px 670px 690px";
       }
     });
   }
