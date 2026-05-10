@@ -12,16 +12,16 @@ var PS2DQ5_10cHighlightRules = function() {
         regex : "77777",
       },
       {
-        token : "string",
+        token : "variable",
         regex : "7777|55555|66666",
       },
       {
-        token : "string",
+        token : "variable",
         regex : "777|5555|6666",
       },
       {
         token : "comment",
-        regex : "[0-9/]",
+        regex : "[0-9/-]",
       },
       ],
   };
@@ -38,12 +38,12 @@ var PS2DQ5_100cHighlightRules = function() {
           regex : "7777|55555|66666|77777",
         },
         {
-          token : "string",
+          token : "variable",
           regex : "777|5555|6666",
         },
         {
           token : "comment",
-          regex : "[0-9/]",
+          regex : "[0-9/-]",
         },
         ],
     };
@@ -52,25 +52,26 @@ oop.inherits(PS2DQ5_100cHighlightRules, TextHighlightRules);
 const PS2DQ5_100cMode = function() { this.HighlightRules = PS2DQ5_100cHighlightRules; };
 oop.inherits(PS2DQ5_100cMode, TextMode);
 
-const createDiffView = ace.require("ace/ext/diff").createDiffView;
+// const createDiffView = ace.require("ace/ext/diff").createDiffView;
 
-//example function to create side-by-side editors
-const createSplitEditor = function (editorA, editorB) {
-    const el = document.getElementById('example');
-    var e0 = document.getElementById('editorA');
-    var e1 = document.getElementById('editorB');
-    const height = document.documentElement.clientHeight - el.offsetTop;
-    // console.log(document.documentElement.clientHeight, el.offsetTop);
-    el.style.display = "grid";
-    el.style.gridAutoFlow = "column";
-    el.style.gridTemplateColumns = "660px 660px 640px";
-    el.style.gridTemplateRows = `${height-30}px 20px`;
+//container function to create side-by-side editors
+const createSplitEditor = function (editor10C, editor100C) {
+    const el = document.getElementById('container');
+    var e0 = document.getElementById('editor10C');
+    var e1 = document.getElementById('editor100C');
 
     var split = { $container: el };
 
     split.resize = function resize() {
-        editorA.resize();
-        editorB.resize();
+      const height = document.documentElement.clientHeight - el.offsetTop;
+      // console.log(document.documentElement.clientHeight, el.offsetTop);
+      el.style.display = "grid";
+      el.style.gridAutoFlow = "column";
+      el.style.gridTemplateColumns = "670px 670px 780px";
+      el.style.gridTemplateRows = `${height-30}px 20px`;
+
+      editor10C.resize();
+      editor100C.resize();
     };
 
     window.addEventListener("resize", split.resize);
@@ -80,26 +81,26 @@ const createSplitEditor = function (editorA, editorB) {
 
 fetch("./ps2dq5-10C.txt")
   .then(response => response.text())
-  .then(text => editorA.setValue(text) && editorA.session.getUndoManager().reset());
+  .then(text => editor10C.setValue(text) && editor10C.session.getUndoManager().reset());
 fetch("./ps2dq5-100C.txt")
   .then(response => response.text())
-  .then(text => editorB.setValue(text) && editorB.session.getUndoManager().reset());
+  .then(text => editor100C.setValue(text) && editor100C.session.getUndoManager().reset());
 
 // Create the editor (left side)
-const editorA = ace.edit("editorA", {
+const editor10C = ace.edit("editor10C", {
   
   mode: new PS2DQ5_10cMode(),
 });
 
 // Create the editor (right side)
-const editorB = ace.edit("editorB", {
+const editor100C = ace.edit("editor100C", {
   mode: new PS2DQ5_100cMode(),
 });
 
-for (const ed of [editorA, editorB]) {
+for (const ed of [editor10C, editor100C]) {
   ed.setOption("firstLineNumber", -14);
   ed.setKeyboardHandler("ace/keyboard/emacs");
-  ed.setTheme("ace/theme/twilight");
+  // ed.setTheme("ace/theme/monokai");
 //   ed.setReadOnly(true);
 //   ed.$readOnlyCallback = function(){};
 //   ed.commands.addCommand({
@@ -111,7 +112,7 @@ for (const ed of [editorA, editorB]) {
     name: "toggleFocus",
     bindKey: {win: "Tab", mac: "Tab"},
     exec: (e) => {
-      const next = (ed == editorA) ? editorB : editorA;
+      const next = (ed == editor10C) ? editor100C : editor10C;
       next.focus();
     }});
   ed.commands.addCommand({
@@ -143,6 +144,10 @@ for (const ed of [editorA, editorB]) {
         JackpotList.updateData(data);
     }});
 }
+editor10C.setTheme("ace/theme/twilight");
+editor10C.setStyle("ace_10c");
+editor100C.setTheme("ace/theme/twilight");
+editor100C.setStyle("ace_100c");
 
 
 const ps2dq5_wait_offset = 0.5;
@@ -162,16 +167,16 @@ const ps2dq5_rowcol2rollreel = function (row, col) {
   return [roll, reel];
 }
 
-const options = {
-    syncSelections: true,
-    ignoreTrimWhitespace: true,
-}
+// const options = {
+//     syncSelections: true,
+//     ignoreTrimWhitespace: true,
+// }
 
-const diffView = createDiffView({
-    editorA: editorA,
-    editorB: editorB,
-}, options);
-createSplitEditor(editorA, editorB);
+// const diffView = createDiffView({
+//     editor10C: editor10C,
+//     editor100C: editor100C,
+// }, options);
+createSplitEditor(editor10C, editor100C);
 
 const CmdLine = function(el, ed, placeholder) {
     var renderer = new (ace.require("ace/virtual_renderer").VirtualRenderer)(el);
@@ -207,17 +212,15 @@ const CmdLine = function(el, ed, placeholder) {
     };
 }
 
-CmdLine(document.getElementById('consoleA'), editorA, "10コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
-CmdLine(document.getElementById('consoleB'), editorB, "100コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
+CmdLine(document.getElementById('console10C'), editor10C, "10コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
+CmdLine(document.getElementById('console100C'), editor100C, "100コインスロット出目表 | 🍒2/🔵3/🔔4/🍉5/BAR6/7️⃣7");
 
 const msecfmt = function(val) {
     const min = Math.floor(val / 60);
-    const sec = Math.floor(val % 60);
-    const msec = Math.floor(val % 1 * 1000);
+    const sec = Math.abs(Math.floor(val % 60));
+    const msec = Math.abs(Math.floor(val % 1 * 1000));
     return `${min}:${sec.toString().padStart(2, 0)}.${msec.toString().padEnd(3, 0)}`;
 }
-
-
 
 const JackpotList = new Tabulator("#jackpot-list", {
     ajaxURL: './ps2dq5-casino-jackpotdata.json',
@@ -244,10 +247,10 @@ const JackpotList = new Tabulator("#jackpot-list", {
       }
     },
     columns:[
-    {title:"&nbsp;待ち時間&nbsp;", field:"wait", sorter: "time",
+    {title:"&nbsp;&nbsp;待ち時間&nbsp;&nbsp;", field:"wait", sorter: "time",
         formatter: function(cell, _, __){
             const val = cell.getValue();
-            if (val == -1) return "";
+            if (isNaN(val)) return "";
 
             return msecfmt(val);
         },
@@ -272,41 +275,50 @@ document.querySelector("#jackpot-list").addEventListener("keydown", function(e){
   // console.log(rowData.roll, rowData.reel, rowData.wait);
 
   const [row, col] = ps2dq5_rollreel2rowcol(rowData.roll, rowData.reel);
-  targetTime = rowData.wait;
+  Target.wait = rowData.wait;
+  Target.roll = rowData.roll;
+  Target.reel = rowData.reel;
   // console.log(row, col, rowData.wait*1000);
 
   const _100cp = rowData.slot == "100C";
 
   if (_100cp) {
-    editorB.focus();
-    editorB.gotoLine(row+ps2dq5_jackpotJump_row_offset, col);
+    editor100C.focus();
+    editor100C.gotoLine(row+ps2dq5_jackpotJump_row_offset, col);
   } else {
-    editorA.focus();
-    editorB.gotoLine(row+ps2dq5_jackpotJump_row_offset, col);
+    editor10C.focus();
+    editor100C.gotoLine(row+ps2dq5_jackpotJump_row_offset, col);
   }
 });
 
 const ps2dq5_jackpotJump_row_offset = -15;
 
 let T = null;
-let targetTime = null;
+const Target = {
+  wait: null,
+  roll: null,
+  reel: null,
+};
 const CountdownTimerElement = document.querySelector("#countdown-timer");
 const CountdownTimer = function () {
-    const baseTime = new Date;
-    clearInterval(T);
-    T = setInterval(function() {
-        const remaining = (!targetTime
-                           ? "未設定"
-                           : msecfmt((targetTime * 1000 - (new Date - baseTime)) / 1000));
-        const elapsed = msecfmt((new Date - baseTime) / 1000);
-        CountdownTimerElement.innerHTML = `残り${remaining} (${elapsed}経過)`;
-    });
+  const baseTime = new Date;
+  clearInterval(T);
+  T = setInterval(function() {
+    const elapsed = msecfmt((new Date - baseTime) / 1000);
+    if (Target.wait === null) {
+      CountdownTimerElement.innerHTML = `目標未設定 (${elapsed}経過)`;
+      return;
+    }
+    const target = `${Target.roll}-${Target.reel}`;
+    const remaining = msecfmt((Target.wait * 1000 - (new Date - baseTime)) / 1000);
+    CountdownTimerElement.innerHTML = `目標${target} / 残り${remaining} (${elapsed}経過)`;    
+  });
 };
 
 window.onload = function() {
   const containerList = [
-    [editorA, document.querySelector("#editorA")],
-    [editorB, document.querySelector("#editorB")],
+    [editor10C, document.querySelector("#editor10C")],
+    [editor100C, document.querySelector("#editor100C")],
     [document.querySelector("#jackpot-list .tabulator-tableholder"), document.querySelector("#jackpot-list")],
   ];
 
@@ -320,8 +332,32 @@ window.onload = function() {
         else
           _container.classList.add('inactive');
       }
+      if (ed == editor10C) {
+        document.querySelector("#container").style.gridTemplateColumns = "670px 0px 780px";
+      } else if (ed == editor100C) {
+        document.querySelector("#container").style.gridTemplateColumns = "0px 670px 780px";
+      }
     });
   }
-  editorA.focus();
-  editorA.gotoLine(0, 0);
+  editor10C.focus();
+  editor10C.gotoLine(0, 0);
 }
+
+function syncEditors(source, target) {
+  // スクロール同期
+  const scrollTop = source.session.getScrollTop();
+  const scrollLeft = source.session.getScrollLeft();
+  target.session.setScrollTop(scrollTop);
+  target.session.setScrollLeft(scrollLeft);
+
+  // カーソル同期
+  const cursor = source.getCursorPosition();
+  target.moveCursorTo(cursor.row, cursor.column);
+}
+
+editor10C.session.on('changeScrollTop', () => syncEditors(editor10C, editor100C));
+editor100C.session.on('changeScrollTop', () => syncEditors(editor100C, editor10C));
+editor10C.selection.on('changeCursor', () => syncEditors(editor10C, editor100C));
+editor100C.selection.on('changeCursor', () => syncEditors(editor100C, editor10C));
+
+// 水色と赤

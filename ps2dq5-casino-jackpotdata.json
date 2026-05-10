@@ -1,7 +1,7 @@
 [
 	{
 		"id": 1,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": -13,
 		"reel": 2,
@@ -12,7 +12,7 @@
 	},
 	{
 		"id": 2,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": -2,
 		"reel": 4,
@@ -23,7 +23,7 @@
 	},
 	{
 		"id": 3,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 19,
 		"reel": 1,
@@ -34,7 +34,7 @@
 	},
 	{
 		"id": 4,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 33,
 		"reel": 4,
@@ -45,7 +45,7 @@
 	},
 	{
 		"id": 5,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 35,
 		"reel": 5,
@@ -56,7 +56,7 @@
 	},
 	{
 		"id": 6,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 58,
 		"reel": 1,
@@ -67,7 +67,7 @@
 	},
 	{
 		"id": 7,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 83,
 		"reel": 4,
@@ -78,7 +78,7 @@
 	},
 	{
 		"id": 8,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 123,
 		"reel": 1,
@@ -89,7 +89,7 @@
 	},
 	{
 		"id": 9,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 274,
 		"reel": 3,
@@ -100,7 +100,7 @@
 	},
 	{
 		"id": 10,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 363,
 		"reel": 2,
@@ -111,7 +111,7 @@
 	},
 	{
 		"id": 11,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 365,
 		"reel": 5,
@@ -122,7 +122,7 @@
 	},
 	{
 		"id": 12,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 492,
 		"reel": 4,
@@ -133,7 +133,7 @@
 	},
 	{
 		"id": 13,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 495,
 		"reel": 3,
@@ -144,7 +144,7 @@
 	},
 	{
 		"id": 14,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 644,
 		"reel": 5,
@@ -155,7 +155,7 @@
 	},
 	{
 		"id": 15,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 657,
 		"reel": 2,
@@ -166,7 +166,7 @@
 	},
 	{
 		"id": 16,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 689,
 		"reel": 5,
@@ -177,7 +177,7 @@
 	},
 	{
 		"id": 17,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 698,
 		"reel": 4,
@@ -188,7 +188,7 @@
 	},
 	{
 		"id": 18,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 698,
 		"reel": 3,
@@ -199,7 +199,7 @@
 	},
 	{
 		"id": 19,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 714,
 		"reel": 5,
@@ -210,7 +210,7 @@
 	},
 	{
 		"id": 20,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 845,
 		"reel": 5,
@@ -221,7 +221,7 @@
 	},
 	{
 		"id": 21,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 917,
 		"reel": 6,
@@ -232,7 +232,7 @@
 	},
 	{
 		"id": 22,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 959,
 		"reel": 6,
@@ -243,7 +243,7 @@
 	},
 	{
 		"id": 23,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 1023,
 		"reel": 2,
@@ -254,7 +254,7 @@
 	},
 	{
 		"id": 24,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 1062,
 		"reel": 3,
@@ -265,7 +265,7 @@
 	},
 	{
 		"id": 25,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 1150,
 		"reel": 2,
@@ -276,7 +276,7 @@
 	},
 	{
 		"id": 26,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 1208,
 		"reel": 2,
@@ -287,7 +287,7 @@
 	},
 	{
 		"id": 27,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 1265,
 		"reel": 2,
@@ -298,7 +298,7 @@
 	},
 	{
 		"id": 28,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 1297,
 		"reel": 4,
@@ -309,7 +309,7 @@
 	},
 	{
 		"id": 29,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 1541,
 		"reel": 2,
@@ -320,7 +320,7 @@
 	},
 	{
 		"id": 30,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 1982,
 		"reel": 5,
@@ -331,7 +331,7 @@
 	},
 	{
 		"id": 31,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 2831,
 		"reel": 2,
@@ -342,7 +342,7 @@
 	},
 	{
 		"id": 32,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3000,
 		"reel": 4,
@@ -353,7 +353,7 @@
 	},
 	{
 		"id": 33,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3071,
 		"reel": 4,
@@ -364,7 +364,7 @@
 	},
 	{
 		"id": 34,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3156,
 		"reel": 5,
@@ -375,7 +375,7 @@
 	},
 	{
 		"id": 35,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3230,
 		"reel": 3,
@@ -386,7 +386,7 @@
 	},
 	{
 		"id": 36,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3262,
 		"reel": 4,
@@ -397,7 +397,7 @@
 	},
 	{
 		"id": 37,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3652,
 		"reel": 4,
@@ -408,7 +408,7 @@
 	},
 	{
 		"id": 38,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3696,
 		"reel": 2,
@@ -419,7 +419,7 @@
 	},
 	{
 		"id": 39,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3710,
 		"reel": 3,
@@ -430,7 +430,7 @@
 	},
 	{
 		"id": 40,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 3918,
 		"reel": 3,
@@ -441,7 +441,7 @@
 	},
 	{
 		"id": 41,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 4308,
 		"reel": 3,
@@ -452,7 +452,7 @@
 	},
 	{
 		"id": 42,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 4527,
 		"reel": 2,
@@ -463,7 +463,7 @@
 	},
 	{
 		"id": 43,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 4570,
 		"reel": 2,
@@ -474,7 +474,7 @@
 	},
 	{
 		"id": 44,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "10C",
 		"roll": 4749,
 		"reel": 2,
@@ -485,7 +485,7 @@
 	},
 	{
 		"id": 45,
-		"wait": -1,
+		"wait": "NaN",
 		"slot": "100C",
 		"roll": 4977,
 		"reel": 5,
