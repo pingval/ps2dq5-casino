@@ -240,11 +240,9 @@ const JackpotList = new Tabulator("#jackpot-list", {
       const payout = row.getData().payout;
 
       if (payout.includes("0万")) {
-        row.getElement().style.backgroundColor = "#396";
-        row.getElement().style.color = "white";
-        row.getElement().style.fontWeight = "bold";
+        row.getElement().classList.add("jackpot-100k");
       } else if (payout.includes("万")) {
-        row.getElement().style.backgroundColor = "#9fc";
+        row.getElement().classList.add("jackpot-10k");
       }
     },
     columns:[
@@ -281,9 +279,7 @@ document.querySelector("#jackpot-list").addEventListener("keydown", function(e){
   Target.reel = rowData.reel;
   // console.log(row, col, rowData.wait*1000);
 
-  const _100cp = rowData.slot == "100C";
-
-  if (_100cp) {
+  if (rowData.slot == "100C") {
     editor100C.focus();
     editor100C.gotoLine(row+ps2dq5_jackpotJump_row_offset, col);
   } else {
